@@ -1,18 +1,17 @@
 #!/usr/bin/env python3
-"""Module that provides an async coroutine for random delays."""
+"""this module with afunction that sleeps with a random value """
+
+
 import asyncio
-import random
+import typing
+
+wait_random = __import__("0-basic_async_syntax").wait_random
 
 
-async def wait_random(max_delay: int = 10) -> float:
-    """Wait for a random delay and return it.
+async def wait_n(n: int, max_delay: int) -> typing.List[float]:
+    """a function that sleeps with random value"""
 
-    Args:
-        max_delay: Maximum delay in seconds (default 10)
+    tasks = [wait_random(max_delay) for i in range(n)]
+    list_Delays = await asyncio.gather(*tasks)
 
-    Returns:
-        The random delay value as a float
-    """
-    delay = random.uniform(0, max_delay)
-    await asyncio.sleep(delay)
-    return delay
+    return sorted(list_Delays)

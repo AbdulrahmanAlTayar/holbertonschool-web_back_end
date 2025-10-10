@@ -1,23 +1,14 @@
 #!/usr/bin/env python3
-"""Module that executes multiple coroutines concurrently."""
+"""this module with afunction that measures sleep of async func """
+
+
 import asyncio
-from typing import List
-wait_random = __import__('0-basic_async_syntax').wait_random
+
+wait_n = __import__("1-concurrent_coroutines").wait_n
 
 
-async def wait_n(n: int, max_delay: int) -> List[float]:
-    """Spawn wait_random n times with specified max_delay.
+def measure_time(n: int, max_delay: int) -> float:
+    """a function measures sleeps from"""
+    total_time = asyncio.run(wait_n(n, max_delay))
 
-    Args:
-        n: Number of times to spawn wait_random
-        max_delay: Maximum delay for each wait_random call
-
-    Returns:
-        List of delays in ascending order
-    """
-    tasks = [asyncio.create_task(wait_random(max_delay)) for _ in range(n)]
-    delays = []
-    for task in asyncio.as_completed(tasks):
-        delay = await task
-        delays.append(delay)
-    return delays
+    return sum(total_time) / n
