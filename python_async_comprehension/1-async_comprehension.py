@@ -1,24 +1,13 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""Async generator"""
-import asyncio
-import random
-from typing import Generator
+"""Description: Collect 10 random numbers using an async comprehension
+                 over async_generator and return them.
+"""
+
+from typing import List
+
+async_generator = __import__('0-async_generator').async_generator
 
 
-async def async_generator() -> Generator[float, None, None]:
-    """Async generator"""
-    for _ in range(10):
-        await asyncio.sleep(1)
-        yield random.uniform(0, 10)
-
-
-if __name__ == "__main__":
-
-    async def print_yielded_values():
-        result = []
-        async for i in async_generator():
-            result.append(i)
-        print(result, len(result))
-
-    asyncio.run(print_yielded_values())
+async def async_comprehension() -> List[float]:
+    """Return list of 10 floats yielded by async_generator."""
+    return [number async for number in async_generator()]
