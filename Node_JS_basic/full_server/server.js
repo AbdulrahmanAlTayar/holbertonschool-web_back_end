@@ -1,9 +1,9 @@
 import express from 'express';
-import setupRoutes from './routes/index.js';
+import router from './routes/index.js';
 
 const app = express();
 
-setupRoutes(app);
+app.use(router);
 
 app.listen(1245);
 
